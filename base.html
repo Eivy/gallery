@@ -11,18 +11,29 @@
 </style>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=10.0, user-scalable=yes">
 </head>
-<body onload='shImg()' onscroll='shImg()'>
+<body>
+	<div id='lbox' style="display:none;"  onclick='rm();'>
+		<div id='left' class='chimg' onclick='prevImg(arguments[0]);'>
+			<p class='inner'>◀</p>
+		</div>
+		<div id='right' class='chimg' onclick='nextImg(arguments[0]);'>
+			<p class='inner'>▶</p>
+		</div>
+		<div id='limg'>
+			<img class='limg' alt='' src='' onclick='stop(arguments[0]);'>
+		</div>
+	</div>
 	<div id='control'><div class='button'><button class='chPage' onclick='goto(false);'>prev</button><button class='chPage' onclick='goto(true);'>next</button></div>{{if .Dirs}}<button id='dirbutton' onclick='toggleDirs();'>Dirs</button></div>
 	<div id='dirs'>{{range .Dirs}}<div><a href='{{.}}'>{{.}}</a></div>{{end}}{{end}}</div>
 {{range .Items}}
 	{{if eq .Type `image`}}
 	<div class='box'>
-		<div class='hidden'><img style='width: 10px;' onclick='lbox(this)' onload='rsImg(this)' alt='{{.Url}}'></div>
+		<div class='hidden'><img class='hiddenImg' onclick='lbox(this)' onload='rsImg(this)' alt='{{.Url}}'></div>
 		<div class='name'><a href='{{.Url}}'>{{.Name}}</a></div>
 	</div>
 	{{else}}
 	<div class='box'>
-		<div class='link' style='height: 100%;'><table><tr><td><a href='{{.Url}}'>{{.Name}}</a></td></tr></table></div>
+		<div class='link'><table><tr><td><a href='{{.Url}}'>{{.Name}}</a></td></tr></table></div>
 	</div>
 	{{end}}
 {{end}}

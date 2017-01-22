@@ -57,7 +57,6 @@ a {
 	min-height: 100px;
 	max-width: 600px;
 	max-height: 600px;
-	border: 1px solid;
 	float: left;
 	text-align: center;
 	overflow: auto;
@@ -125,6 +124,7 @@ td {
 }
 .limg {
 	max-width: 90%;
+	max-height: 90%;
 	position: absolute;
 	top: 0;
 	bottom: 0;
@@ -139,7 +139,7 @@ td {
 	display: table;
 	width: 3%;
 	color: #fff;
-	background-color: rgba(3,3,3,0.7);
+	background-color: rgba(255,255,255,0.3);
 	z-index: 4;
 }
 #left {
@@ -149,10 +149,14 @@ td {
 	right: 0;
 }
 .inner {
+	font-size: 300%;
 	display: table-cell;
 	vertical-align: middle;
 }
 table {
 	width: 100%;
+	height: 100%;
+}
+.link {
 	height: 100%;
 }

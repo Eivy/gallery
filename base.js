@@ -1,4 +1,3 @@
-var lboxdom = "<div id='lbox' onclick='rm();' style='postion: relative;'><div id='outbox'><div id='inbox'><div id='c'><div id='l' onclick='var e = arguments[0]; prevImg(e);' class='lboxbutton'><img class='limg'></div><img onclick='var e = arguments[0];nextImg(e);' class='limg'></div></div></div></div>";
 var d = false;
 var loading = false;
 var r;
@@ -66,43 +65,38 @@ function writeBody() {
 }
 function rm() {
 	document.body.style.overflow = 'auto';
-	document.body.removeChild(document.getElementById('lbox'));
+	document.getElementById("lbox").style.display = 'none';
 }
 function lbox(o) {
-	var p = new DOMParser();
-	var w = p.parseFromString(lboxdom, 'text/html');
+	var w = document.getElementById("lbox");
+	w.style.display = 'inline';
 	var g = w.getElementsByTagName('img');
 	for(i=0; i < g.length; i++)
 		g[i].src = o.alt;
-	var n = w.getElementsByTagName('a');
-	for(i=0; i < n.length; i++) {
-		n[i].href = o.alt;
-		n[i].innerHTML = decodeURIComponent(o.alt);
-	}
-	document.body.appendChild(w.getElementById('lbox'));
 	document.body.style.overflow = 'hidden';
 }
-function nextImg(e) {
+function stop(e) {
 	e.stopPropagation();
+}
+function nextImg(e) {
+	stop(e);
 	var l = document.getElementsByClassName('limg');
 	var i = document.getElementsByTagName('img');
 	for(j = 1, m = i.length-1; j < m; j++)
 		if(i[j].src == l[0].src) {
 			l[0].src = i[j+1].alt;
-			l[1].src = i[j+1].alt;
 			if(l[0].src != "")
 				window.scrollTo(0,i[j+1].offsetParent.offsetParent.offsetTop);
 			return;
 		}
 }
 function prevImg(e) {
-	e.stopPropagation();
+	stop(e);
 	var l = document.getElementsByClassName('limg');
 	var i = document.getElementsByTagName('img');
-	for(j = i.length-3; 0 < j; j--)
+	for(j = i.length-2; 0 < j; j--)
 		if(i[j].src == l[0].src) {
 			l[0].src = i[j-1].alt;
-			l[1].src = i[j-1].alt;
 			if(l[0].src != "")
 				window.scrollTo(0,i[j-1].offsetParent.offsetParent.offsetTop);
 			return;
@@ -115,3 +109,7 @@ function toggleDirs() {
 	else
 		d.style.display = 'none';
 }
+document.addEventListener('DOMContentLoaded', function() {
+	document.addEventListener('scroll', shImg);
+	document.documentElement.addEventListener('load', shImg);
+}, false);
