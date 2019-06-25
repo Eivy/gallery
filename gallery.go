@@ -25,12 +25,14 @@ var css string
 var port string
 var tmplFile string
 
+// Item is struct
 type Item struct {
 	Name string
-	Url  string
+	URL  string
 	Type string
 }
 
+// Data is struct
 type Data struct {
 	Style  string
 	Script string
@@ -213,11 +215,11 @@ func classifyItem(files []string, s int, e int) (items []Item) {
 		uri := strings.Replace(strings.Replace(url.QueryEscape(f), "+", "%20", -1), "%2F", "/", -1)
 		switch filepath.Ext(f) {
 		case ".jpg", ".jpeg", ".gif", ".png", ".bmp":
-			items = append(items, Item{Name: f, Url: uri, Type: "image"})
+			items = append(items, Item{Name: f, URL: uri, Type: "image"})
 		case ".mp4":
-			items = append(items, Item{Name: f, Url: uri, Type: "video"})
+			items = append(items, Item{Name: f, URL: uri, Type: "video"})
 		case ".html":
-			items = append(items, Item{Name: f, Url: uri, Type: "html"})
+			items = append(items, Item{Name: f, URL: uri, Type: "html"})
 		}
 	}
 	return items
@@ -295,6 +297,7 @@ func listFiles(path string) ([]string, []string, error) {
 	return files, dirs, nil
 }
 
+// Error puts error log
 func Error(e error) {
 	fmt.Fprintln(os.Stderr, "Time:"+fmt.Sprint(time.Now())+"\t"+fmt.Sprint(e))
 }
